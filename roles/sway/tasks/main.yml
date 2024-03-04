@@ -1,0 +1,3 @@
+- name: include pipewire task 
+  include_tasks: 
+    file: roles/sway/tasks/pipewire.yml

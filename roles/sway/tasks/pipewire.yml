@@ -1,0 +1,44 @@
+- name: install pipewire
+  become: yes
+  community.general.xbps:
+    name:
+      - pipewire
+      - libspa-bluetooth
+      - alsa-pipewire
+
+- name: configure pipewire
+  become: yes
+  block:
+    - file:
+        path: "/etc/pipewire/pipewire.conf.d"
+        state: directory
+    - file:
+        path: "/etc/alsa/conf.d"
+        state: directory
+    - file:
+        src: "/usr/share/examples/wireplumber/10-wireplumber.conf"
+        dest: "/etc/pipewire/pipewire.conf.d/10-wireplumber.conf"
+        state: link
+        force: yes
+    - file:
+        src: "/usr/share/examples/pipewire/20-pipewire-pulse.conf"
+        dest: "/etc/pipewire/pipewire.conf.d/20-pipewire-pulse.conf"
+        state: link
+        force: yes
+    - file:
+        src: "/usr/share/alsa/alsa.conf.d/50-pipewire.conf"
+        dest: "/etc/alsa/conf.d/50-pipewire.conf"
+        state: link
+        force: yes
+    - file:
+        src: "/usr/share/alsa/alsa.conf.d/99-pipewire-default.conf"
+        dest: "/etc/alsa/conf.d/99-pipewire-default.conf"
+        state: link
+        force: yes
+
+- name: add user to audio/video groups
+  become: yes
+  user:
+    name: "{{ ansible_env.USER }}"
+    append: true
+    groups: audio,video
