@@ -1,0 +1,7 @@
+- name: run roles
+  hosts: localhost
+  vars_files:
+    - vars/nord.yml
+  roles:
+    - fish
+    - foot
