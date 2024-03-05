@@ -1,0 +1,18 @@
+- name: install iptables
+  become: yes
+  community.general.xbps:
+    name:
+      - iptables
+      - iputils
+      - runit-iptables
+    state: present
+
+- name: coy iptables rules
+  become: yes
+  copy:
+    dest: "/etc/iptables/{{ item }}"
+    src: "{{ item }}"
+    mode: 0644
+  loop:
+    - iptables.rules
+    - ip6tables.rules
