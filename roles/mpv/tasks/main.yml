@@ -1,0 +1,20 @@
+- name: install mpv
+  become: yes
+  community.general.xbps:
+    name:
+      - mpv
+      - yt-dlp
+    state: present
+
+- name: template mpv config
+  block:
+    - file:
+        path: "/home/{{ ansible_facts.user_id }}/.config/mpv"
+        state: directory
+    - template:
+        dest: "/home/{{ ansible_facts.user_id }}/.config/mpv/mpv.conf"
+        src: mpv.conf.j2
+        mode: 0644
+    - file:
+        path: "/home/{{ ansible_facts.user_id }}/Pictures/mpv-shots"
+        state: directory
