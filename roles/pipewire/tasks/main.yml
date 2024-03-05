@@ -42,3 +42,7 @@
     name: "{{ ansible_env.USER }}"
     append: true
     groups: audio,video
+
+- name: set pipewire fact
+  set_fact:
+    pipewire_installed: true

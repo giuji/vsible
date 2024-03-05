@@ -1,0 +1,25 @@
+#
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    position bottom
+    height {{ sway_bar_height }}
+
+    tray_padding 8
+    icon_theme Adwaita
+    pango_markup enabled
+
+    # When the status_command prints a new line to stdout, swaybar updates.
+    # The default just shows the current date and time.
+    status_command while ~/.config/sway/status; do sleep 1; done
+
+    colors {
+        statusline #{{ foreground }}
+        background #{{ background }}
+	focused_workspace #{{ background }} #{{ background }} #{{ ansi_green }}
+	active_workspace #{{ background }} #{{ background }} #{{ ansi_bright_black }}
+	inactive_workspace #{{ background }} #{{ background }} #{{ ansi_bright_black }}
+
+    }
+}

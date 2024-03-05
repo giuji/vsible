@@ -1,3 +1,93 @@
-- name: include pipewire task 
-  include_tasks: 
-    file: roles/sway/tasks/pipewire.yml
+- name: install mesa and drivers
+  become: yes
+  block:
+#This checks your cpu manufacturer and installs gpu drivers accordingly, a mismatch between gpu manufacturer and cpu manufacturer in your system will cause issues, this isnt an issue for me since i dont have dedicateded graphics
+#
+#You can easily disable this by setting install_video_drivers to false, default is true
+    - name: intel
+      community.general.xbps:
+        name:
+          - linux-firmware-intel
+          - mesa-dri
+          - vulkan-loader
+          - mesa-vulkan-intel
+          - intel-video-accel
+        state: present
+      when: ansible_facts.processor[1] == 'GenuineIntel'
+    - name: amd
+      community.general.xbps:
+        name:
+          - linux-firmware-amd
+          - mesa-dri
+          - vulkan-loader
+          - mesa-vulkan-radeon
+          - mesa-vaapi
+          - mesa-vdpau
+        state: present
+      when: ansible_facts.processor[1] == 'AuthenticAMD'
+  when: install_video_drivers == true
+
+- name: install seatd
+  become: yes
+  block:
+    - community.general.xbps:
+        name: seatd
+        state: present
+    - user:
+        name: "{{ ansible_facts.user_id }}"
+        append: true
+        groups: _seatd
+    - file:
+        src: "/etc/sv/seatd"
+        dest: "/etc/runit/runsvdir/default/seatd"
+        state: link
+        force: yes
+
+- name: install sway
+  become: yes
+  community.general.xbps:
+    name:
+      - swayfx
+      - swayidle
+      - dbus
+    state: present
+
+- name: install sway config
+  block:
+    - file:
+        path: "/home/{{ ansible_facts.user_id }}/.config/sway"
+        state: directory
+    - file:
+        path: "/home/{{ ansible_facts.user_id }}/.config/sway/include"
+        state: directory
+    - template:
+        dest: "/home/{{ ansible_facts.user_id }}/.config/sway/config"
+        src: config.j2
+        mode: 0644
+
+- name: add sway launch script
+  block:
+    - copy:
+        dest: "/home/{{ ansible_facts.user_id }}/.local/bin/startwayland"
+        src: startwayland
+        mode: 0755
+    - debug:
+        msg: remember to add .local/bin to your $PATH!!
+
+- name: add sway-bar
+  block:
+    - template:
+        dest: "/home/{{ ansible_facts.user_id }}/.config/sway/include/sway-bar"
+        src: sway-bar.j2
+        mode: 0644
+    - template:
+        dest: "/home/{{ ansible_facts.user_id }}/.config/sway/status"
+        src: status.j2
+        mode: 0755
+
+- name: add pipewire config
+  copy:
+    dest: "/home/{{ ansible_facts.user_id }}/.config/sway/include/pipewire"
+    src: pipewire
+    mode: 0644
+  when: pipewire_installed == true

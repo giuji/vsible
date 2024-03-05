@@ -1,0 +1,36 @@
+#!/usr/bin/fish
+#wayland envs
+set -x GDK_BACKEND wayland,x11
+set -x QT_QPA_PLATFORM "wayland;xcb"
+set -x QT_QPA_PLATFORMTHEME gtk2
+set -x SDL_VIDEODRIVER wayland
+set -x CLUTTER_BACKEND wayland
+set -x XDG_SESSION_TYPE wayland
+set -x XDG_CURRENT_DESKTOP sway
+set -x XDG_SESSION_DESKTOP sway
+set -x QT_AUTO_SCREEN_SCALE_FACTOR 1
+set -x QT_WAYLAND_DISABLE_WINDOWDECORATION 1
+set -x MOZ_ENABLE_WAYLAND 1
+
+#create XDG_RUNTIME_DIR (no elgoind baby)
+if test -z $XDG_RUNTIME_DIR
+  set -f UID (id -u)
+  set -x XDG_RUNTIME_DIR /tmp/$UID-runtime-dir
+  if test ! -d '$XDG_RUNTIME_DIR'
+    mkdir -p $XDG_RUNTIME_DIR
+    chmod 0700 $XDG_RUNTIME_DIR
+  end
+else
+end
+
+#launch ssh-agent
+set sshpid (pidof ssh-agent)
+if test -z $sshpid
+  eval (ssh-agent -c)
+  set -ax SSH_AUTH_SOCK
+  set -ax SSH_AGENT_PID
+else
+  echo "agent already running :D"
+end
+
+exec dbus-run-session sway

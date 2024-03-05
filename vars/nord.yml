@@ -20,3 +20,5 @@ ansi_bright_cyan: 8fbcbb #nord7
 ansi_bright_white: eceff4 #nord6
 
 theme_type: dark #either dark or light
+
+wallpaper_color: a9afbb
