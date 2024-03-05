@@ -10,9 +10,9 @@
 - name: template foot config
   block:
     - file:
-        path: "/home/{{ ansible_env.USER }}/.config/foot"
+        path: "/home/{{ ansible_facts.user_id }}/.config/foot"
         state: directory
     - template:
-        dest: "/home/{{ ansible_env.USER }}/.config/foot/foot.ini"
+        dest: "/home/{{ ansible_facts.user_id }}/.config/foot/foot.ini"
         src: foot.ini.j2
         mode: 0644

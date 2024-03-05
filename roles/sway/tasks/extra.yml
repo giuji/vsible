@@ -1,0 +1,23 @@
+- name: check if pipewire is present
+  stat:
+    path: "/usr/bin/pipewire"
+  register: pipewire_installed
+
+- name: add pipewire config
+  copy:
+    dest: "/home/{{ ansible_facts.user_id }}/.config/sway/include/pipewire"
+    src: pipewire
+    mode: 0644
+  when: pipewire_installed.stat.exists
+
+- name: check if foot is installed
+  stat:
+    path: "/usr/bin/foot"
+  register: foot_installed
+
+- name: add foot config
+  copy:
+    dest: "/home/{{ ansible_facts.user_id }}/.config/sway/include/foot"
+    src: foot
+    mode: 0644
+  when: foot_installed.stat.exists
