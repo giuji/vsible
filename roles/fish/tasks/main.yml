@@ -8,24 +8,24 @@
 - name: set fish as default user shell
   become: yes
   user:
-    name: "{{ ansible_env.USER }}"
+    name: "{{ ansible_facts.user_id }}"
     shell: /usr/bin/fish
     state: present
 
 - name: copy fish config
   block:
     - file:
-        path: "/home/{{ ansible_env.USER }}/.config/fish"
+        path: "/home/{{ ansible_facts.user_id }}/.config/fish"
         state: directory
     - copy:
-        dest: "/home/{{ ansible_env.USER }}/.config/fish/config.fish"
+        dest: "/home/{{ ansible_facts.user_id }}/.config/fish/config.fish"
         src: config.fish
         mode: 0755
 
 # ensure ~/.local/bin and ~/.local/appimage are present (check config.fish)
 - name: create PATH folders
   file: 
-    path: "/home/{{ ansible_env.USER }}/.local/{{ item }}"
+    path: "/home/{{ ansible_facts.user_id }}/.local/{{ item }}"
     state: directory
   loop:
     - bin
