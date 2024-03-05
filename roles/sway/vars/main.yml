@@ -1,5 +1,4 @@
 display_name: HDMI-A-1
 keyboard_name: 1452:591:USB_Dongle # do swaymsg -t get_inputs to find yours
 install_video_drivers: true
-pipewire_installed: false
 sway_bar_height: 35
