@@ -85,14 +85,5 @@
         src: status.j2
         mode: 0755
 
-- name: check if pipewire is present
-  stat:
-    path: "/usr/bin/pipewire"
-  register: pipewire_installed
-
-- name: add pipewire config
-  copy:
-    dest: "/home/{{ ansible_facts.user_id }}/.config/sway/include/pipewire"
-    src: pipewire
-    mode: 0644
-  when: pipewire_installed.stat.exists
+- name: extra config include
+  include_tasks: extra.yml
