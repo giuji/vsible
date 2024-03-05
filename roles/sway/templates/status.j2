@@ -1,0 +1,50 @@
+#!/usr/bin/fish
+
+#volume percentage
+set volumel (wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2}' | sed 's/\.//' | sed 's/^0*//')
+#mute status
+set getmute (wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep MUTED)
+#current time
+set datenow (date +'%H:%M')
+#get current layout
+set keyboard '{{ keyboard_name }}'
+set layoutc (swaymsg -t get_inputs | grep -A 13 $keyboard | grep "xkb_active_layout_name" | awk '{print$2}' | cut -c 2-3 | head -n1)
+#get current network status
+set network (connmanctl technologies | grep -A 4 wifi | grep Connected | awk '{print $3}')
+
+
+#colors
+set foreground '#{{ foreground }}'
+set light_foreground '#{{ ansi_bright_black }}'
+set red '#{{ ansi_red }}'
+set yellow '#{{ ansi_yellow }}'
+set blue '#{{ ansi_blue }}'
+set green '#{{ ansi_green }}'
+set cyan '#{{ ansi_cyan }}'
+
+if test $network = True
+  set networkstatus 'connected'
+  set networkcolor $green
+else
+  set networkstatus 'disconnected'
+  set networkcolor $red
+end
+
+if test -z $getmute
+  set volumes $volumel
+else
+  set volumes "MUTE"
+end
+
+if test $volumes = MUTE
+  set volcolor $yellow
+else
+  if test (echo $volumel | sed 's/%//g') -gt 80
+    set volcolor $red
+  else
+    set volcolor $green
+  end
+end
+
+# set pagno_markup to 'enabled' in your sway-bar config
+echo -n "<span color='$light_foreground'>WiFi: </span><span color='$networkcolor'>$networkstatus</span><span color='$light_foreground'>, Layout: </span><span color='$cyan'>$layoutc</span><span color='$light_foreground'>, Vol: </span><span color='$volcolor'>$volumes</span> <span color='$light_foreground'>-</span> <b>$datenow</b>"

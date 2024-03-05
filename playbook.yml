@@ -1,7 +1,20 @@
+- name: facts
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - setup:
+        gather_subset:
+          - '!all'
+          - processor
+          - user_id
+
 - name: run roles
+  gather_facts: no
   hosts: localhost
   vars_files:
     - vars/nord.yml
   roles:
     - fish
     - foot
+    - pipewire
+    - sway
