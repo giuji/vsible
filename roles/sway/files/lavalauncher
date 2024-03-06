@@ -1,3 +1,2 @@
 exec lavalauncher
-bindsym $mod+t exec ~/.config/sway/lavaluncher
 layer_effects "lhp.LavaLauncher" shadows enable

@@ -10,12 +10,11 @@
 
 - name: run lavalauncher role
   gather_facts: no
-  hosts: all
+  hosts: laptop
   vars_files:
     - vars/nord.yml
   roles: 
     - lavalauncher
-  when: "'laptop' in group_names"
 
 - name: run roles
   gather_facts: no

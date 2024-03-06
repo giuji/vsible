@@ -91,4 +91,4 @@
 
 - name: laptop config
   include_tasks: laptop.yml
-  when: "'laptop' in group_name"
+  when: "'laptop' in group_names"
