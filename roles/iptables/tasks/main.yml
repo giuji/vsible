@@ -3,7 +3,7 @@
   community.general.xbps:
     name:
       - iptables
-      - iputils
+      - iproute2
       - runit-iptables
     state: present
 
