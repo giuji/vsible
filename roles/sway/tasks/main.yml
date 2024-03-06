@@ -92,3 +92,16 @@
 - name: laptop config
   include_tasks: laptop.yml
   when: "'laptop' in group_names"
+
+- name: install bemenu
+  become: yes
+  community.general.xbps:
+    name:
+      - bemenu
+    state: present
+
+- name: template bemenu config
+  template:
+    dest: "/home/{{ ansible_facts.user_id }}/.local/bin/bmenu"
+    src: bmenu.j2
+    mode: 0755
