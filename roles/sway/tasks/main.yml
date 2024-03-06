@@ -50,6 +50,7 @@
       - swayfx
       - swayidle
       - dbus
+      - fish-shell
     state: present
 
 - name: install sway config
@@ -87,3 +88,7 @@
 
 - name: extra config include
   include_tasks: extra.yml
+
+- name: laptop config
+  include_tasks: laptop.yml
+  when: "'laptop' in group_names"

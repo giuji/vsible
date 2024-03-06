@@ -1,0 +1,31 @@
+- name: install lavalauncher
+  become: yes
+  community.general.xbps:
+    name: 
+      - lavalauncher
+      - mate-icon-theme
+    state: present
+
+- name: template lavalauncher config
+  block:
+    - file:
+        path: "/home/{{ ansible_facts.user_id }}/.config/lavalauncher"
+        state: directory
+    - template:
+        dest: "/home/{{ ansible_facts.user_id }}/.config/lavalauncher/lavalauncher.conf"
+        src: lavalauncher.conf.j2
+        mode: 0644
+
+- name: copy lavalauncher scripts
+  block:
+    - file:
+        path: "/home/{{ ansible_facts.user_id }}/.config/lavalauncher/scripts"
+        state: directory
+    - copy:
+        dest: "/home/{{ ansible_facts.user_id }}/.config/lavalauncher/scripts/{{ item }}"
+        src: "{{ item }}"
+        mode: 0755
+      loop:
+        - workspaces.fish
+        - keyboard
+

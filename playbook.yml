@@ -1,5 +1,5 @@
 - name: facts
-  hosts: localhost
+  hosts: all
   gather_facts: no
   tasks:
     - setup:
@@ -8,9 +8,17 @@
           - processor
           - user_id
 
+- name: run lavalauncher role
+  gather_facts: no
+  hosts: laptop
+  vars_files:
+    - vars/nord.yml
+  roles: 
+    - lavalauncher
+
 - name: run roles
   gather_facts: no
-  hosts: localhost
+  hosts: all
   vars_files:
     - vars/nord.yml
   roles:
