@@ -1,11 +1,3 @@
-display_name: HDMI-A-1
-
-### YOU SHOULD DEFINE THESE IN YOUR host_vars/hostname.yml file, THESE ARE JUST FALLBACK VALUES
-keyboard_name: 1452:591:USB_Dongle # do swaymsg -t get_inputs to find yours
-touchscreen_device: 1386:20816:Wacom_Pen_and_multitouch_sensor_Finger
-wacom_device: 1386:20816:Wacom_Pen_and_multitouch_sensor_Pen
-touchpad_device: 2:14:ETPS/2_Elantech_Touchpad
+### please take a look at your host_vars/hostname.yml file
 
 install_video_drivers: true
-sway_bar_height: 35
-default_border_type: pixel
