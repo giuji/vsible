@@ -1,0 +1,20 @@
+### Gestures
+bindgesture swipe:4:left workspace next
+bindgesture swipe:4:right workspace prev
+
+### Input configuration
+input "1386:20816:Wacom_Pen_and_multitouch_sensor_Finger" {
+    map_to_output {{ display_name }}
+}
+
+input "1386:20816:Wacom_Pen_and_multitouch_sensor_Pen" {
+    map_to_output {{ display_name }}
+}
+
+input "2:14:ETPS/2_Elantech_Touchpad" {
+    dwt enabled
+    dwtp enabled
+    natural_scroll enabled
+    tap enabled
+    tap_button_map lrm
+}

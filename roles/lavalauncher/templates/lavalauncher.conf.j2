@@ -1,0 +1,107 @@
+global-settings
+{
+	watch-config-file = true;
+}
+
+bar
+{
+	output                  = {{ display_name }};
+	position                = top;
+	margin                  = 8 0 0 0;
+	border		        = 1;
+	border-colour           = "#{{ foreground }}";
+	background-colour       = "#{{ ansi_black }}";
+	indicator-active-colour = "#{{ ansi_bright_black }}";
+	indicator-hover-colour  = "#{{ foreground }}";
+	indicator-style         = "rectangle";
+	size                    = 42;
+	radius                  = 0;
+	icon-padding            = 8;
+
+	# Condition for the default configuration set.
+	condition-resolution = wider-than-high;
+
+	config
+	{
+		# Condition for this configuration set.
+		condition-resolution = higher-than-wide;
+
+		# Additional configuration sets copy the default configuration set,
+		# but settings can be overwritten.
+		position = left;
+	}
+	button
+	{
+	       image-path = /usr/share/icons/mate/48x48/actions/go-previous.png;
+	       command    = ~/.config/lavalauncher/scripts/workspaces.fish prev;
+	}
+
+
+	button
+	{
+	       image-path = /usr/share/icons/mate/48x48/devices/audio-headphones.png;
+	       command    = pavucontrol &;
+	}
+	button
+	{
+		image-path = /usr/share/icons/mate/48x48/apps/web-browser.png;
+	        command   = firefox &;
+	}
+	button
+	{
+	       image-path = /usr/share/icons/mate/48x48/apps/terminal.png;
+	       command    = footclient &;
+	}
+	button
+	{
+	       image-path = /usr/share/icons/mate/48x48/places/folder_home.png;
+	       command    = pcmanfm &;
+	}
+	button
+	{
+	       image-path = /usr/share/icons/mate/48x48/status/dialog-password.png;
+	       command    = keepassxc &;
+	}
+	button
+	{
+	       image-path = /usr/share/icons/mate/48x48/emblems/emblem-downloads.png;
+	       command    = qbittorrent &;
+	}
+	button
+	{
+	       image-path = /usr/share/icons/mate/48x48/actions/address-book-new.png;
+	       command    = xournalpp &;
+        }
+	button
+	{
+	       image-path = /usr/share/icons/mate/48x48/devices/keyboard.png;
+	       command    = ~/.config/lavalauncher/scripts/keyboard;
+	}
+	button 
+	{
+		image-path = /usr/share/icons/mate/48x48/status/nm-device-wireless.png;
+		command	   = connman-gtk &;
+	}
+	button
+	{
+	       image-path = /usr/share/icons/mate/48x48/status/starred.png;
+	       command    = anki &;
+	}
+
+
+	button
+	{
+	       image-path = /usr/share/icons/mate/48x48/actions/object-rotate-right.png;
+	       command    = swaymsg output {{ display_name }} transform 180 clockwise;
+	}
+	button
+	{
+	       image-path = /usr/share/icons/mate/48x48/actions/window-close.png;
+	       command    = swaymsg kill;
+	}
+	button
+	{
+	       image-path = /usr/share/icons/mate/48x48/actions/go-next.png;
+	       command    = ~/.config/lavalauncher/workspaces.fish next;
+	}
+}

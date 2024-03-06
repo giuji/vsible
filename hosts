@@ -1,0 +1,4 @@
+[laptop]
+zen ansible_connection=local
+[desktop]
+doublep ansible_connection=local

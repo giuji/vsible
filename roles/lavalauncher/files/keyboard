@@ -1,0 +1,8 @@
+#!/usr/bin/fish
+set wpid (pidof wvkbd-mobintl)
+if test -z $wpid
+  wvkbd-mobintl -L 210 --fn Tamzen &
+else
+  pkill wvkbd-mobintl
+  echo false
+end

@@ -1,0 +1,17 @@
+- name: add laptop config
+  template:
+    dest: "/home/{{ ansible_facts.user_id }}/.config/sway/include/laptop"
+    src: laptop.j2
+    mode: 0644
+
+- name: check if lavalauncher is present
+  stat:
+    path: "/usr/bin/lavalauncher"
+  register: lavalauncher_installed
+
+- name: add lavalauncher config
+  copy:
+    dest: "/home/{{ ansible_facts.user_id }}/.config/sway/include/lavalauncher"
+    src: lavalauncher
+    mode: 0644
+  when: lavalauncher_installed.stat.exists
