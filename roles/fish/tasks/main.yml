@@ -1,4 +1,4 @@
-- name: install foot
+- name: install fish
   become: yes
   community.general.xbps:
     name: 
