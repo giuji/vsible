@@ -1,0 +1,16 @@
+- name: install mako
+  become: yes
+  community.general.xbps:
+    name: 
+      - mako
+    state: present
+
+- name: template mako config
+  block:
+    - file:
+        path: "/home/{{ ansible_facts.user_id }}/.config/mako"
+        state: directory
+    - template:
+        dest: "/home/{{ ansible_facts.user_id }}/.config/mako/config"
+        src: config.j2
+        mode: 0644

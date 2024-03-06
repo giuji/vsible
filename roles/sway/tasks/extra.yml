@@ -21,3 +21,15 @@
     src: foot
     mode: 0644
   when: foot_installed.stat.exists
+
+- name: check if makko is installed
+  stat:
+    path: "/usr/bin/mako"
+  register: mako_installed
+
+- name: add mako config
+  copy:
+    dest: "/home/{{ ansible_facts.user_id }}/.config/sway/include/mako"
+    src: mako
+    mode: 0644
+  when: mako_installed.stat.exists
