@@ -187,15 +187,16 @@ gaps inner 8
 font Tamzen 12
 
 client.focused #{{ foreground }} #{{ ansi_bright_black }} #{{ foreground }} #{{ foreground }} #{{ foreground }}
-client.focused_inactive #{{ background }} #2b2f37 #{{ foreground }} #0d1118 #0d1118
-client.unfocused #{{ background }} #2b2f37 #{{ foreground }} #0d1118 #0d1118
+client.focused_inactive #{{ ans_bright_black }} #{{ ansi_black }} #{{ foreground }} #{{ ansi_bright_black }} #{{ ansi_bright_black }}
+client.unfocused #{{ ans_bright_black }} #{{ ansi_black }} #{{ foreground }} #{{ ansi_bright_black }} #{{ ansi_bright_black }}
 default_border {{ default_border_type }} 1
 
 blur disable
 shadows enable
 shadow_blur_radius 8
-shadow_color #{{ background }}7f
+shadow_color #{{ background }}f0
 layer_effects "panel" shadows enable
+titlebar_separator disable
 #layer_effects "notifications" shadows enable
 
 include /home/{{ ansible_facts.user_id }}/.config/sway/include/*
