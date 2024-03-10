@@ -12,8 +12,7 @@ set $right l
 set $menu bmenu
 
 ### Output configuration
-#output eDP-1 background ~/.config/wall.png fill
-output {{ display_name }} bg #{{ wallpaper_color }} solid_color
+output {{ display_name }} background ~/.config/wall.png
 
 seat seat0 xcursor_theme Vanilla-DMZ 24
 mouse_warping container
@@ -187,8 +186,8 @@ gaps inner 8
 font Tamzen 12
 
 client.focused #{{ foreground }} #{{ ansi_bright_black }} #{{ foreground }} #{{ foreground }} #{{ foreground }}
-client.focused_inactive #{{ ans_bright_black }} #{{ ansi_black }} #{{ foreground }} #{{ ansi_bright_black }} #{{ ansi_bright_black }}
-client.unfocused #{{ ans_bright_black }} #{{ ansi_black }} #{{ foreground }} #{{ ansi_bright_black }} #{{ ansi_bright_black }}
+client.focused_inactive #{{ ansi_bright_black }} #{{ ansi_black }} #{{ foreground }} #{{ ansi_bright_black }} #{{ ansi_bright_black }}
+client.unfocused #{{ ansi_bright_black }} #{{ ansi_black }} #{{ foreground }} #{{ ansi_bright_black }} #{{ ansi_bright_black }}
 default_border {{ default_border_type }} 1
 
 blur disable

@@ -51,6 +51,7 @@
       - swayidle
       - dbus
       - fish-shell
+      - xcursor-vanilla-dmz
     state: present
 
 - name: install sway config
@@ -65,6 +66,17 @@
         dest: "/home/{{ ansible_facts.user_id }}/.config/sway/config"
         src: config.j2
         mode: 0644
+
+- name : copy wallpaper image
+  block:
+    - copy:
+        dest: "/home/{{ ansible_facts.user_id }}/.config/wall.png"
+        src: "{{ item }}.png"
+        mode: 0644
+      when: "'{{ item }}' in group_names"
+      loop:
+        - desktop
+        - laptop
 
 - name: add sway launch script
   block:
