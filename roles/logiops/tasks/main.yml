@@ -1,0 +1,22 @@
+- name: install logiops
+  become: yes
+  community.general.xbps:
+    name: logiops
+    state: present
+
+- name: copy config
+  become: yes
+  copy:
+    dest: /etc/logid.cfg
+    src: logid.cfg
+    mode: 0644
+    owner: root
+    group: root
+
+- name: enable service
+  become: yes
+  file:
+    src: "/etc/sv/seatd"
+    dest: "/etc/runit/runsvdir/default/seatd"
+    state: link
+    force: yes
