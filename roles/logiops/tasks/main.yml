@@ -16,7 +16,7 @@
 - name: enable service
   become: yes
   file:
-    src: "/etc/sv/seatd"
-    dest: "/etc/runit/runsvdir/default/seatd"
+    src: "/etc/sv/logid"
+    dest: "/etc/runit/runsvdir/default/logid"
     state: link
     force: yes
