@@ -1,5 +1,4 @@
 touchscreen_device: 1386:20816:Wacom_Pen_and_multitouch_sensor_Finger
 wacom_device: 1386:20816:Wacom_Pen_and_multitouch_sensor_Pen
 touchpad_device: 2:14:ETPS/2_Elantech_Touchpad
-keyboard_name: 1:1:AT_Translated_Set_2_keyboard
 display_name: eDP-1

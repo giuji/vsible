@@ -1,14 +1,10 @@
 #!/usr/bin/fish
-
 #volume percentage
 set volumel (wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2}' | sed 's/\.//' | sed 's/^0*//')
 #mute status
 set getmute (wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep MUTED)
 #current time
 set datenow (date +'%H:%M')
-#get current layout
-set keyboard '{{ keyboard_name }}'
-set layoutc (swaymsg -t get_inputs | grep -A 13 $keyboard | grep "xkb_active_layout_name" | awk '{print$2}' | cut -c 2-3 | head -n1)
 #get current network status
 set network (connmanctl technologies | grep -A 4 wifi | grep Connected | awk '{print $3}')
 
@@ -47,4 +43,4 @@ else
 end
 
 # set pagno_markup to 'enabled' in your sway-bar config
-echo -n "<span color='$light_foreground'>WiFi: </span><span color='$networkcolor'>$networkstatus</span><span color='$light_foreground'>, Layout: </span><span color='$cyan'>$layoutc</span><span color='$light_foreground'>, Vol: </span><span color='$volcolor'>$volumes</span> <span color='$light_foreground'>-</span> <b>$datenow</b>"
+echo -n "<span color='$light_foreground'>WiFi: </span><span color='$networkcolor'>$networkstatus</span><span color='$light_foreground'>, Vol: </span><span color='$volcolor'>$volumes</span> <span color='$light_foreground'>-</span> <b>$datenow</b>"
