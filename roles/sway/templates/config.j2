@@ -172,21 +172,13 @@ bindsym $mod+s exec slurp | grim -g - ~/Pictures/Screenshots/screenshot-$(date '
 #
 # Prettify
 #
-gaps inner 8
+gaps inner 4
 font Tamzen 12
 
 client.focused #{{ foreground }} #{{ ansi_bright_black }} #{{ foreground }} #{{ foreground }} #{{ foreground }}
 client.focused_inactive #{{ ansi_bright_black }} #{{ ansi_black }} #{{ foreground }} #{{ ansi_bright_black }} #{{ ansi_bright_black }}
 client.unfocused #{{ ansi_bright_black }} #{{ ansi_black }} #{{ foreground }} #{{ ansi_bright_black }} #{{ ansi_bright_black }}
 default_border {{ default_border_type }} 1
-
-blur disable
-shadows enable
-shadow_blur_radius 6
-shadow_color #{{ background }}f0
-layer_effects "panel" shadows enable
-titlebar_separator disable
-#layer_effects "notifications" shadows enable
 
 include /home/{{ ansible_facts.user_id }}/.config/sway/include/*
 include /etc/sway/config.d/*
