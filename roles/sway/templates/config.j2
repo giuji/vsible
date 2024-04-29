@@ -167,8 +167,7 @@ bindsym $mod+r mode "resize"
 #
 # Screenshots
 #
-bindsym $mod+Shift+s exec slurp | grim -g - - | wl-copy
-bindsym $mod+s exec slurp | grim ~/Pictures/Screenshots/ciao.png
+bindsym $mod+s exec slurp | grim -g - ~/Pictures/Screenshots/screenshot-$(date '+%H':'%M'-'%d'-'%m'-'%y').png
 
 #
 # Special keybindings
