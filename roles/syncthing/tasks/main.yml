@@ -1,0 +1,26 @@
+- name: install syncthing
+  become: yes
+  community.general.xbps:
+    name: syncthing
+    state: present
+
+- name: check if per user services are enabled
+  block:
+    - stat: 
+        path: "/home/{{ ansible_facts.user_id }}/.config/runit"
+      register: runitConfig
+    - stat:
+        path: "/etc/sv/runsvdir-{{ ansible_facts.user_id }}"
+      register: runsvdirUser
+
+- name: copy service config
+  block:
+    - file:
+        path: "/home/{{ ansible_facts.user_id }}/.config/runit/syncthing"
+        state: directory
+    - copy:
+        dest: "/home/{{ ansible_facts.user_id }}/.config/runit/syncthing/run"
+        src: syncthing-service-run
+        mode: 0755
+  when: runsvdirUser.stat.exists and runitConfig.stat.exists
+
