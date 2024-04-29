@@ -1,3 +1,4 @@
 ### please take a look at your host_vars/hostname.yml file
 
 install_video_drivers: true
+sway_bar_height: 30
