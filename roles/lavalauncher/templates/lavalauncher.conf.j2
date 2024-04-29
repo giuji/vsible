@@ -7,13 +7,12 @@ bar
 {
 	output                  = {{ display_name }};
 	position                = top;
-	margin                  = 8 0 0 0;
-	border		        = 1;
-	border-colour           = "#{{ foreground }}";
-	background-colour       = "#{{ ansi_black }}";
+	border		            = 0;
+	background-colour       = "#{{ background }}";
 	indicator-active-colour = "#{{ ansi_bright_black }}";
 	indicator-hover-colour  = "#{{ foreground }}";
 	indicator-style         = "rectangle";
+    mode                    = "full";
 	size                    = 42;
 	radius                  = 0;
 	icon-padding            = 8;
@@ -28,7 +27,6 @@ bar
 
 		# Additional configuration sets copy the default configuration set,
 		# but settings can be overwritten.
-		position = left;
 	}
 	button
 	{
