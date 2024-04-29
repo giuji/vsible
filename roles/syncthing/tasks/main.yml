@@ -24,3 +24,17 @@
         mode: 0755
   when: runsvdirUser.stat.exists and runitConfig.stat.exists
 
+- name: check if iptables rules are present
+  stat:
+    path: "/etc/iptables/iptables.rules"
+  register: iptablesRules
+
+- name: add syncthing port to firewall
+  become: yes
+  blockinfile:
+    path: "/etc/iptables/iptables.rules"
+    insertafter: "lo"
+    block: |
+      -A INPUT -p tcp --dport 22000 -j ACCEPT
+      -A INPUT -p udp --dport 22000 -j ACCEPT
+      -A INPUT -p udp --dport 21027 -j ACCEPT
