@@ -30,3 +30,5 @@
     - mpv
     - iptables
     - logiops
+    - runsvdir-user
+    - syncthing
