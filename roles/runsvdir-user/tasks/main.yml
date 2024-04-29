@@ -1,0 +1,20 @@
+- name: create user services folder
+  file:
+    path: "/home/{{ ansible_facts.user_id }}/.config/runit"
+    state: directory
+
+- name: install runsvdir user script
+  become: yes
+  block:
+    - file:
+        path: "/etc/sv/runsvdir-{{ ansible_facts.user_id }}"
+        state: directory
+    - template:
+        dest: "/etc/sv/runsvdir-{{ ansible_facts.user_id }}/run"
+        src: runsvdir-user-run.j2
+        mode: 0755
+    - file: 
+        src: "/etc/sv/runsvdir-{{ ansible_facts.user_id }}"
+        dest: "/etc/runit/runsvdir/default/runsvdir-{{ ansible_facts.user_id }}"
+        state: link
+        force: yes

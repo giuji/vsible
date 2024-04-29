@@ -1,0 +1,8 @@
+#!/usr/bin/fish
+
+set -x USER {{ ansible_facts.user_id }}
+set -x HOME /home/{{ ansible_facts.user_id }}
+set -x GROUPS (id -Gn "$USER" | tr ' ' ':')
+set -x svdir $HOME/.config/runit
+
+exec chpst -u "$USER:$GROUPS" runsvdir "$svdir"
